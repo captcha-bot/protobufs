@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package shenko.discord.models;
+
+option go_package = "github.com/captcha-bot/shenko-protobufs/discord/model";
+
+import "google/protobuf/timestamp.proto";
+
+message SnowflakeValue {
+  fixed64 value = 1 [jstype = JS_STRING];
+}
+
+message MessageData {
+  fixed64 id = 1 [jstype = JS_STRING];
+  fixed64 channel_id = 2 [jstype = JS_STRING];
+  SnowflakeValue guild_id = 3;
+  string content = 4;
+  google.protobuf.Timestamp timestamp = 5;
+  google.protobuf.Timestamp edited_timestamp = 6;
+
+  fixed64 author = 7 [jstype = JS_STRING];
+  fixed64 member = 8 [jstype = JS_STRING];
+}
