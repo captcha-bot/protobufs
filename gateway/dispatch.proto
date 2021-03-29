@@ -1,3 +1,6 @@
 syntax = "proto3";
 
-package shenko.gateway.dispatch;
+package captcha.gateway.dispatch;
+
+
+import ""

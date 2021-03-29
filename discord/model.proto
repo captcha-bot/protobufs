@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package shenko.discord.models;
+package captcha.discord.models;
 
 option go_package = "github.com/captcha-bot/shenko-protobufs/discord/model";
 
