@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-package captcha.service.service;
-
-option go_package = "github.com/captcha-bot/shenko-protobufs/service/service";
-
-
-

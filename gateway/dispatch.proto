@@ -1,6 +1,13 @@
 syntax = "proto3";
 
 package captcha.gateway.dispatch;
+option go_package = 
+	"github.com/captcha-bot/shenko-protobufs/gateway/dispatch";
 
+import "google/protobuf/empty.proto";
+import "discord/model.proto"
 
-import ""
+service GatewayDispatch {
+	rpc MessageCreate(google.protobuf.Empty)
+		returns (stream captcha.discord.model.MessageData);
+}
