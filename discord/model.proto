@@ -1,4 +1,4 @@
-syntax = "proto3.15";
+syntax = "proto3";
 
 package captcha.discord.model;
 
