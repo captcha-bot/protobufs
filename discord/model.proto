@@ -13,11 +13,11 @@ message SnowflakeValue {
 message MessageData {
   fixed64 id = 1 [jstype = JS_STRING];
   fixed64 channel_id = 2 [jstype = JS_STRING];
-  option SnowflakeValue guild_id = 3;
+  optional SnowflakeValue guild_id = 3;
   string content = 4;
   google.protobuf.Timestamp timestamp = 5;
-  option google.protobuf.Timestamp edited_timestamp = 6;
+  optional google.protobuf.Timestamp edited_timestamp = 6;
 
   fixed64 author = 7 [jstype = JS_STRING];
-  option fixed64 member = 8 [jstype = JS_STRING];
+  optional fixed64 member = 8 [jstype = JS_STRING];
 }
