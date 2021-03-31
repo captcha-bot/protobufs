@@ -11,9 +11,9 @@ import "google/protobuf/timestamp.proto";
 message MessageData {
   fixed64 id = 1 [jstype = JS_STRING];
   fixed64 channel_id = 2 [jstype = JS_STRING];
-  fixed64 guild_id = 3 [jstype = JS_STRING];
-  string content = 4; // Optional to cover if the user somehow sends an embed.
+  optional fixed64 guild_id = 3 [jstype = JS_STRING];
+  optional string content = 4; // Optional to cover if the user somehow sends an embed.
 
   fixed64 author = 7 [jstype = JS_STRING];
-  fixed64 member = 8 [jstype = JS_STRING];
+  optional fixed64 member = 8 [jstype = JS_STRING];
 }
