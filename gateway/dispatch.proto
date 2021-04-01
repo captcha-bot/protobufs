@@ -4,8 +4,8 @@ package captcha.gateway.dispatch;
 option go_package = 
 	"github.com/captcha-bot/protobuf-go/gateway/dispatch";
 
-import "google/protobuf/empty.proto";
 import "discord/model.proto";
+import "google/protobuf/empty.proto";
 
 service GatewayDispatch {
 	rpc MessageCreate(google.protobuf.Empty)
