@@ -69,7 +69,7 @@ service Config {
 	rpc updateGuild(Guild) returns (google.protobuf.Empty);
 	rpc updateCaptcha(Captcha) returns (google.protobuf.Empty);
 
-	rpc DeleteGuild(IdGroup.Guild) returns (google.protobuf.Empty);
+	rpc DeleteGuild(GuildIdGroup.Guild) returns (google.protobuf.Empty);
 	rpc DeleteAdditionalRole(IdGroup.AdditionalRole) returns (google.protobuf.Empty);
-	rpc DeleteCaptcha(IdGroup.Captcha) returns (google.protobuf.Empty);
+	rpc DeleteCaptcha(GuildIdGroup.Captcha) returns (google.protobuf.Empty);
 }
