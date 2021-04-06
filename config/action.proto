@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package captcha.config.action;
+import "google/protobuf/empty.proto";
+
+message Guild {
+	string guild_id = 1;
+	string prefix = 2;
+	bool valid = 3;
+	optional string verification_channel = 4;
+	string verification_method = 5;
+	string user_role = 6;
+	optional string log_channel = 7;
+	bool bypass_captcha = 8;
+}
+
+message AdditionalRole {
+	string role_id = 1;
+	string guild_id = 2;
+}
+
+message AdditionalRoles {
+	repeated AdditionalRole additional_roles = 1;
+}
+
+message Captcha {
+	string guild_id = 1;
+}
+
+// GuildIdGroup
+message GuildIdGroup {
+	message Guild {
+		string guild_id = 1;
+	}
+
+	message AdditionalRoles {
+		string guild_id = 1;
+	}
+
+	message Captcha {
+		string guild_id = 1;
+	}
+}
+
+// IdGroup
+message IdGroup {
+	message Guild {
+		string guild_id = 1;
+	}
+
+	message AdditionalRole {
+		string role_id = 1;
+	}
+
+	message Captcha {
+		string captcha_id = 1;
+	}
+}
+
+service Config {
+	rpc GetGuild(GuildIdGroup.Guild) returns (Guild);
+	rpc GetAdditionalRoles(GuildIdGroup.AdditionalRoles) returns (AdditionalRoles);
+	rpc GetCaptcha(GuildIdGroup.Captcha) returns (Captcha);
+
+	rpc SetGuild(Guild) returns (google.protobuf.Empty);
+	rpc SetAdditionalRole(AdditionalRole) returns (google.protobuf.Empty);
+	rpc SetCaptcha(Captcha) returns (google.protobuf.Empty);
+
+	rpc updateGuild(Guild) returns (google.protobuf.Empty);
+	rpc updateCaptcha(Captcha) returns (google.protobuf.Empty);
+
+	rpc DeleteGuild(IdGroup.Guild) returns (google.protobuf.Empty);
+	rpc DeleteAdditionalRole(IdGroup.AdditionalRole) returns (google.protobuf.Empty);
+	rpc DeleteCaptcha(IdGroup.Captcha) returns (google.protobuf.Empty);
+}
