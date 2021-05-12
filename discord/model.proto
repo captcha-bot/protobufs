@@ -2,13 +2,169 @@ syntax = "proto3";
 
 package captcha.discord.model;
 option go_package =
-    "github.com/captcha-bot/protobuf-go/discord/model";
+	"github.com/captcha-bot/protobuf-go/discord/model";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message SnowflakeValue {
+	fixed64 value = 1 [jstype = JS_STRING];
+}
+
+message SnowflakeListValue {
+	repeated fixed64 values = 1 [jstype = JS_STRING];
+}
+
+message PermissionsValue {
+	uint64 value = 1 [jstype = JS_STRING];
+}
+
+message EventEnvelope {
+	HeaderData header = 1;
+	oneof event_data {
+		MessageCreate message_create_event = 2;
+		GuildMemberAdd guild_member_add = 3;
+	}
+
+	message HeaderData {
+		uint64 seq = 1;
+		google.protobuf.Timestamp received_at = 2;
+	}
+}
+
+message GuildData {
+	fixed64 id = 1 [jstype = JS_STRING];
+	string name = 2;
+	google.protobuf.StringValue icon = 3;
+	string region = 4;
+	fixed64 owner_id = 5 [jstype = JS_STRING];
+	uint32 member_count = 6;
+	uint32 verification_level = 7;
+	uint32 default_message_notifications = 8;
+	uint32 explicit_content_filter = 9;
+	repeated string features = 10;
+	uint32 mfa_level = 11;
+	bool widget_enabled = 12;
+	SnowflakeValue widget_channel_id = 13;
+	SnowflakeValue system_channel_id = 14;
+	google.protobuf.StringValue vanity_url_code = 15;
+	google.protobuf.StringValue description = 16;
+	google.protobuf.StringValue banner = 17;
+	uint32 premium_tier = 18;
+	uint32 premium_subscription_count = 19;
+	bool unavailable = 20;
+}
 
 message MessageData {
-  fixed64 id = 1 [jstype = JS_STRING];
-  fixed64 channel_id = 2 [jstype = JS_STRING];
-  string content = 4;
-  fixed64 author = 7 [jstype = JS_STRING];
-  optional fixed64 guild_id = 3 [jstype = JS_STRING];
-  optional fixed64 member = 8 [jstype = JS_STRING];
+	fixed64 id = 1 [jstype = JS_STRING];
+	fixed64 channel_id = 2 [jstype = JS_STRING];
+	SnowflakeValue guild_id = 3;
+	string content = 4;
+	google.protobuf.Timestamp timestamp = 5;
+	google.protobuf.Timestamp edited_timestamp = 6;
+	SnowflakeListValue mention_roles = 7;
+
+	MessageType type = 8;
+
+	uint32 flags = 9;
+
+	UserData author = 10;
+	MemberData member = 11;
+	SnowflakeValue webhook_id = 12;
+
+	enum MessageType {
+		UNKNOWN = 0;
+		DEFAULT = 1;
+		RECIPIENT_ADD = 2;
+		RECIPIENT_REMOVE = 3;
+		CALL = 4;
+		CHANNEL_NAME_CHANGE = 5;
+		CHANNEL_ICON_CHANGE = 6;
+		CHANNEL_PINNED_MESSAGE = 7;
+		GUILD_MEMBER_JOIN = 8;
+		USER_PREMIUM_GUILD_SUBSCRIPTION = 9;
+		USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_1 = 10;
+		USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_2 = 11;
+		USER_PREMIUM_GUILD_SUBSCRIPTION_TIER_3 = 12;
+		CHANNEL_FOLLOW_ADD = 13;
+		GUILD_DISCOVERY_DISQUALIFIED = 15;
+		GUILD_DISCOVERY_REQUALIFIED = 16;
+	}
+}
+
+message ChannelData {
+	fixed64 id = 1 [jstype = JS_STRING];
+	SnowflakeValue guild_id = 2;
+	string name = 3;
+	ChannelType type = 4;
+	uint32 position = 5;
+	SnowflakeValue parent_id = 6;
+	uint32 rate_limit_per_user = 7;
+	repeated ChannelPermissionOverwriteData permission_overwrites = 8;
+  
+	enum ChannelType {
+		UNKNOWN = 0;
+		GUILD_TEXT = 1;
+		DM = 2;
+		GUILD_VOICE = 3;
+		GROUP_DM = 4;
+		GUILD_CATEGORY = 5;
+		GUILD_NEWS = 6;
+		GUILD_STORE = 7;
+		PUBLIC_THREAD = 8;
+		PRIVATE_THREAD = 9;
+		GUILD_STAGE_VOICE = 10;
+	}
+
+	message ChannelPermissionOverwriteData {
+		fixed64 id = 1 [jstype = JS_STRING];
+		ChannelPermissionOverwriteType type = 2;
+		uint64 allow = 3 [jstype = JS_STRING];
+		uint64 deny = 4 [jstype = JS_STRING];
+
+		enum ChannelPermissionOverwriteType {
+			UNKNOWN = 0;
+			ROLE = 1;
+			MEMBER = 2;
+		}
+	}
+}
+
+message MemberData {
+	UserData user = 1;
+	optional bool pending = 2;
+	google.protobuf.Timestamp joined_at = 3;
+	SnowflakeListValue roles = 4;
+}
+
+message RoleData {
+	fixed64 id = 1 [jstype = JS_STRING];
+	fixed64 guild_id = 2 [jstype = JS_STRING];
+	string name = 3;
+	bool managed = 4;
+	uint32 position = 5;
+	uint64 permissions = 6 [jstype = JS_STRING];
+  }
+  
+
+message UserData {
+	fixed64 id = 1 [jstype = JS_STRING];
+	string username = 2;
+	google.protobuf.StringValue avatar = 3;
+	uint32 discriminator = 4;
+	bool bot = 5;
+}
+
+message MessageCreate {
+	fixed64 id = 1 [jstype = JS_STRING];
+	fixed64 channel_id = 2 [jstype = JS_STRING];
+	string content = 3;
+	fixed64 author = 4 [jstype = JS_STRING];
+	optional fixed64 guild_id = 5 [jstype = JS_STRING];
+	optional fixed64 member = 6 [jstype = JS_STRING];
+}
+
+message GuildMemberAdd {
+	fixed64 guild_id = 1 [jstype = JS_STRING];
+	MemberData member = 2;
 }
