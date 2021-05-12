@@ -141,7 +141,6 @@ message MessageCreate {
 	string content = 3;
 	fixed64 author = 4 [jstype = JS_STRING];
 	optional fixed64 guild_id = 5 [jstype = JS_STRING];
-	optional fixed64 member = 6 [jstype = JS_STRING];
 }
 
 message GuildMemberAdd {
