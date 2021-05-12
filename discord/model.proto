@@ -20,15 +20,9 @@ message PermissionsValue {
 }
 
 message EventEnvelope {
-	HeaderData header = 1;
 	oneof event_data {
-		MessageCreate message_create_event = 2;
-		GuildMemberAdd guild_member_add = 3;
-	}
-
-	message HeaderData {
-		uint64 seq = 1;
-		google.protobuf.Timestamp received_at = 2;
+		MessageCreate message_create_event = 1;
+		GuildMemberAdd guild_member_add = 2;
 	}
 }
 
@@ -40,18 +34,9 @@ message GuildData {
 	fixed64 owner_id = 5 [jstype = JS_STRING];
 	uint32 member_count = 6;
 	uint32 verification_level = 7;
-	uint32 default_message_notifications = 8;
 	uint32 explicit_content_filter = 9;
 	repeated string features = 10;
 	uint32 mfa_level = 11;
-	bool widget_enabled = 12;
-	SnowflakeValue widget_channel_id = 13;
-	SnowflakeValue system_channel_id = 14;
-	google.protobuf.StringValue vanity_url_code = 15;
-	google.protobuf.StringValue description = 16;
-	google.protobuf.StringValue banner = 17;
-	uint32 premium_tier = 18;
-	uint32 premium_subscription_count = 19;
 	bool unavailable = 20;
 }
 
@@ -61,16 +46,12 @@ message MessageData {
 	SnowflakeValue guild_id = 3;
 	string content = 4;
 	google.protobuf.Timestamp timestamp = 5;
-	google.protobuf.Timestamp edited_timestamp = 6;
-	SnowflakeListValue mention_roles = 7;
+	SnowflakeListValue mention_roles = 6;
 
-	MessageType type = 8;
+	MessageType type = 7;
 
-	uint32 flags = 9;
-
-	UserData author = 10;
-	MemberData member = 11;
-	SnowflakeValue webhook_id = 12;
+	UserData author = 8;
+	MemberData member = 9;
 
 	enum MessageType {
 		UNKNOWN = 0;
@@ -99,9 +80,8 @@ message ChannelData {
 	ChannelType type = 4;
 	uint32 position = 5;
 	SnowflakeValue parent_id = 6;
-	uint32 rate_limit_per_user = 7;
 	repeated ChannelPermissionOverwriteData permission_overwrites = 8;
-  
+
 	enum ChannelType {
 		UNKNOWN = 0;
 		GUILD_TEXT = 1;
