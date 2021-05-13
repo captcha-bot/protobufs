@@ -8,8 +8,8 @@ import "discord/model.proto";
 import "google/protobuf/empty.proto";
 
 service GatewayDispatch {
-	rpc Event(google.protobuf.Empty)
-		returns (stream captcha.discord.model.EventEnvelope);
+	rpc Event(stream captcha.discord.model.EventEnvelope)
+		returns (google.protobuf.Empty);
 }
 
 service RouterDispatch {
