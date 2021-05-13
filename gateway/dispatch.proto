@@ -15,4 +15,7 @@ service GatewayDispatch {
 service RouterDispatch {
 	rpc MessageCreate(google.protobuf.Empty)
 		returns (stream captcha.discord.model.MessageCreate);
+
+	rpc GuildMemberAdd(google.protobuf.Empty)
+		returns (stream captcha.discord.model.GuildMemberAdd);
 }
